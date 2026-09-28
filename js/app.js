@@ -62,10 +62,11 @@ function renderPageLibrary(){
   document.querySelectorAll(".page-detail").forEach(btn=>btn.onclick=()=>showBook(Number(btn.dataset.book)));
 }
 function showView(view){
-  const dashboard=document.querySelector("#dashboardView"),library=document.querySelector("#libraryView"),calendar=document.querySelector("#calendarView");
-  dashboard.hidden=view!=="dashboard"; library.hidden=view!=="biblioteca"; if(calendar)calendar.hidden=view!=="calendario";
+  const dashboard=document.querySelector("#dashboardView"),library=document.querySelector("#libraryView"),calendar=document.querySelector("#calendarView"),reading=document.querySelector("#readingView");
+  dashboard.hidden=view!=="dashboard"; library.hidden=view!=="biblioteca"; if(calendar)calendar.hidden=view!=="calendario"; if(reading)reading.hidden=view!=="leitura";
   if(view==="biblioteca")renderPageLibrary();
   if(view==="calendario")renderPageCalendar();
+  if(view==="leitura")renderPersonalReading();
   window.scrollTo({top:0,behavior:"smooth"});
 }
 document.querySelectorAll('[data-view-link="biblioteca"]').forEach(a=>a.addEventListener("click",e=>{e.preventDefault();showView("biblioteca");history.replaceState(null,"","#biblioteca")}));
@@ -117,3 +118,18 @@ document.querySelectorAll('[data-view-link="calendario"]').forEach(a=>a.addEvent
 document.querySelector("#calendarBackDashboard")?.addEventListener("click",()=>{showView("dashboard");history.replaceState(null,"","#inicio")});
 ["#newEventBtn","#agendaCreateBtn"].forEach(s=>document.querySelector(s)?.addEventListener("click",()=>info("Novo encontro","Na etapa Firebase, aqui você poderá informar data, horário, local e escolher entre encontro presencial ou on-line.")));
 if(location.hash==="#agenda")showView("calendario");
+
+/* Página própria — Minha Leitura */
+let personalProgress=Number(localStorage.getItem("re7-progress")||0);
+let chapterCount=Number(localStorage.getItem("re7-chapters")||0);
+function renderPersonalReading(){
+ const t=document.querySelector("#personalProgressText"),b=document.querySelector("#personalProgressBar"),ch=document.querySelector("#chaptersRead"),n=document.querySelector("#readingNotes");
+ if(t)t.textContent=personalProgress+"%";if(b)b.style.width=personalProgress+"%";if(ch)ch.textContent=chapterCount;if(n&&!n.dataset.loaded){n.value=localStorage.getItem("re7-notes")||"";n.dataset.loaded="1";}
+}
+document.querySelectorAll('[data-view-link="leitura"]').forEach(a=>a.addEventListener("click",e=>{e.preventDefault();showView("leitura");history.replaceState(null,"","#minha-leitura")}));
+document.querySelectorAll("[data-progress-add]").forEach(btn=>btn.addEventListener("click",()=>{personalProgress=Math.min(100,personalProgress+Number(btn.dataset.progressAdd));localStorage.setItem("re7-progress",personalProgress);renderPersonalReading()}));
+document.querySelector("#resetPersonalProgress")?.addEventListener("click",()=>{personalProgress=0;localStorage.setItem("re7-progress","0");renderPersonalReading()});
+document.querySelector("#chapterBtn")?.addEventListener("click",()=>{chapterCount++;localStorage.setItem("re7-chapters",chapterCount);renderPersonalReading()});
+document.querySelector("#saveNoteBtn")?.addEventListener("click",()=>{const n=document.querySelector("#readingNotes"),s=document.querySelector("#noteStatus");localStorage.setItem("re7-notes",n.value);s.textContent="Anotação salva neste navegador ✓";setTimeout(()=>s.textContent="Salvo somente neste navegador",2200)});
+document.querySelector("#readingBackDashboard")?.addEventListener("click",()=>{showView("dashboard");history.replaceState(null,"","#inicio")});
+if(location.hash==="#minha-leitura")showView("leitura");
