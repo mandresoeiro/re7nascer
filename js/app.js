@@ -5,8 +5,6 @@ overlay.onclick=()=>{sidebar.classList.remove("open");overlay.classList.remove("
 document.querySelectorAll(".sidebar a").forEach(a=>a.onclick=()=>{sidebar.classList.remove("open");overlay.classList.remove("show")});
 $("#year").textContent=new Date().getFullYear();
 
-let progress=0;
-$("#progressBtn").onclick=()=>{progress=(progress+10)%110;$("#progressText").textContent=progress+"%";$("#progressBar").style.width=progress+"%"};
 
 const dialog=$("#dialog");
 function info(title,text){$("#dialogTitle").textContent=title;$("#dialogText").textContent=text;dialog.showModal()}
@@ -36,7 +34,6 @@ document.querySelectorAll(".filter").forEach(btn=>btn.onclick=()=>{document.quer
 $("#addBook").onclick=()=>info("Sugerir um livro","Em breve este botão abrirá um formulário com título, autor, motivo da sugestão e opção para enviar o livro à votação do grupo.");
 renderLibrary();
 
-$("#voteBtn").onclick=()=>info("Votações","As votações serão ativadas quando conectarmos as contas dos participantes ao Firebase.");
 
 let view=new Date(); view.setDate(1);
 const months=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
@@ -114,10 +111,10 @@ function renderPageCalendar(){
 }
 document.querySelector("#pagePrevMonth")?.addEventListener("click",()=>{pageCalendarDate.setMonth(pageCalendarDate.getMonth()-1);renderPageCalendar()});
 document.querySelector("#pageNextMonth")?.addEventListener("click",()=>{pageCalendarDate.setMonth(pageCalendarDate.getMonth()+1);renderPageCalendar()});
-document.querySelectorAll('[data-view-link="calendario"]').forEach(a=>a.addEventListener("click",e=>{e.preventDefault();showView("calendario");history.replaceState(null,"","#agenda")}));
+document.querySelectorAll('[data-view-link="calendario"]').forEach(a=>a.addEventListener("click",e=>{e.preventDefault();showView("calendario");history.replaceState(null,"","#calendario")}));
 document.querySelector("#calendarBackDashboard")?.addEventListener("click",()=>{showView("dashboard");history.replaceState(null,"","#inicio")});
 ["#newEventBtn","#agendaCreateBtn"].forEach(s=>document.querySelector(s)?.addEventListener("click",()=>info("Novo encontro","Na etapa Firebase, aqui você poderá informar data, horário, local e escolher entre encontro presencial ou on-line.")));
-if(location.hash==="#agenda")showView("calendario");
+if(location.hash==="#calendario")showView("calendario");
 
 /* Página própria — Minha Leitura */
 let personalProgress=Number(localStorage.getItem("re7-progress")||0);
@@ -135,8 +132,6 @@ document.querySelector("#readingBackDashboard")?.addEventListener("click",()=>{s
 if(location.hash==="#minha-leitura")showView("leitura");
 
 /* Página própria — Votações */
-document.querySelectorAll('[data-view-link="votacoes"]').forEach(a=>a.addEventListener("click",e=>{e.preventDefault();showView("votacoes");history.replaceState(null,"","#votacoes")}));
-document.querySelector("#votingBackDashboard")?.addEventListener("click",()=>{showView("dashboard");history.replaceState(null,"","#inicio")});
 document.querySelectorAll('[data-view-link="votacoes"]').forEach(a=>a.addEventListener("click",e=>{e.preventDefault();showView("votacoes");history.replaceState(null,"","#votacoes")}));
 document.querySelector("#votingBackDashboard")?.addEventListener("click",()=>{showView("dashboard");history.replaceState(null,"","#inicio")});
 if(location.hash==="#votacoes")showView("votacoes");
