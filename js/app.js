@@ -62,9 +62,11 @@ function renderPageLibrary(){
   document.querySelectorAll(".page-detail").forEach(btn=>btn.onclick=()=>showBook(Number(btn.dataset.book)));
 }
 function showView(view){
-  const dashboard=document.querySelector("#dashboardView"),library=document.querySelector("#libraryView");
-  if(view==="biblioteca"){dashboard.hidden=true;library.hidden=false;renderPageLibrary();window.scrollTo({top:0,behavior:"smooth"});}
-  else{dashboard.hidden=false;library.hidden=true;window.scrollTo({top:0,behavior:"smooth"});}
+  const dashboard=document.querySelector("#dashboardView"),library=document.querySelector("#libraryView"),calendar=document.querySelector("#calendarView");
+  dashboard.hidden=view!=="dashboard"; library.hidden=view!=="biblioteca"; if(calendar)calendar.hidden=view!=="calendario";
+  if(view==="biblioteca")renderPageLibrary();
+  if(view==="calendario")renderPageCalendar();
+  window.scrollTo({top:0,behavior:"smooth"});
 }
 document.querySelectorAll('[data-view-link="biblioteca"]').forEach(a=>a.addEventListener("click",e=>{e.preventDefault();showView("biblioteca");history.replaceState(null,"","#biblioteca")}));
 document.querySelector("#backDashboard")?.addEventListener("click",()=>{showView("dashboard");history.replaceState(null,"","#inicio")});
@@ -98,3 +100,20 @@ function openDashboardSection(selector){
 document.querySelectorAll('[data-view-link="dashboard"]').forEach(a=>{
   a.onclick=e=>{e.preventDefault();openDashboardSection(a.getAttribute("href"));};
 });
+
+/* Página própria — Calendário */
+let pageCalendarDate=new Date();pageCalendarDate.setDate(1);
+function renderPageCalendar(){
+ const el=document.querySelector("#pageCalendarDays");if(!el)return;
+ const y=pageCalendarDate.getFullYear(),m=pageCalendarDate.getMonth(),first=new Date(y,m,1).getDay(),last=new Date(y,m+1,0).getDate(),today=new Date();
+ document.querySelector("#pageCalendarTitle").textContent=`${months[m]} ${y}`;
+ let out="";for(let i=0;i<first;i++)out+='<span class="blank"></span>';
+ for(let d=1;d<=last;d++){const now=d===today.getDate()&&m===today.getMonth()&&y===today.getFullYear();out+=`<button class="${now?"today":""}"><span>${d}</span></button>`;}
+ el.innerHTML=out;
+}
+document.querySelector("#pagePrevMonth")?.addEventListener("click",()=>{pageCalendarDate.setMonth(pageCalendarDate.getMonth()-1);renderPageCalendar()});
+document.querySelector("#pageNextMonth")?.addEventListener("click",()=>{pageCalendarDate.setMonth(pageCalendarDate.getMonth()+1);renderPageCalendar()});
+document.querySelectorAll('[data-view-link="calendario"]').forEach(a=>a.addEventListener("click",e=>{e.preventDefault();showView("calendario");history.replaceState(null,"","#agenda")}));
+document.querySelector("#calendarBackDashboard")?.addEventListener("click",()=>{showView("dashboard");history.replaceState(null,"","#inicio")});
+["#newEventBtn","#agendaCreateBtn"].forEach(s=>document.querySelector(s)?.addEventListener("click",()=>info("Novo encontro","Na etapa Firebase, aqui você poderá informar data, horário, local e escolher entre encontro presencial ou on-line.")));
+if(location.hash==="#agenda")showView("calendario");
