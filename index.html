@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#29483a">
+  <meta name="description" content="RE7NASCER — Clube de Leitura da Sala 7">
+  <title>RE7NASCER — Clube de Leitura</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="manifest" href="manifest.webmanifest">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="book">♡</div>
+        <div><strong>RE<span>7</span>NASCER</strong><small>Clube de Leitura</small></div>
+      </div>
+      <nav aria-label="Menu principal">
+        <p>PRINCIPAL</p>
+        <a class="active" href="#inicio">⌂ <span>Dashboard</span></a>
+        <a href="#biblioteca">▤ <span>Biblioteca</span></a>
+        <a href="#calendario">▦ <span>Calendário</span></a>
+        <a href="#leitura">◷ <span>Minha leitura</span></a>
+        <p>COMUNIDADE</p>
+        <a href="#encontros">♧ <span>Encontros</span></a>
+        <a href="#votacao">✓ <span>Votações</span></a>
+        <a href="#participantes">♙ <span>Participantes</span></a>
+      </nav>
+      <div class="sidebar-foot">Sala 7<br><small>Livros • Fé • Amizade</small></div>
+    </aside>
+
+    <div class="content">
+      <header>
+        <button class="menu" id="menuBtn" aria-label="Abrir menu">☰</button>
+        <div>
+          <small>RE7NASCER</small>
+          <h1>Bom dia, leitor 👋</h1>
+        </div>
+        <button class="avatar" aria-label="Perfil">R7</button>
+      </header>
+
+      <main id="inicio">
+        <section class="hero">
+          <div>
+            <span class="eyebrow">CLUBE DE LEITURA · SALA 7</span>
+            <h2>Uma nova história<br>começa aqui.</h2>
+            <p>Um espaço para ler, partilhar, cultivar a fé e manter nossa amizade viva.</p>
+            <a class="primary" href="#biblioteca">Explorar biblioteca</a>
+          </div>
+          <div class="hero-mark">7</div>
+        </section>
+
+        <section class="stats" aria-label="Resumo">
+          <article><b>01</b><span>Leitura atual</span></article>
+          <article><b>07</b><span>Participantes</span></article>
+          <article><b>00</b><span>Livros concluídos</span></article>
+          <article><b>—</b><span>Próximo encontro</span></article>
+        </section>
+
+        <div class="grid">
+          <section class="panel reading" id="leitura">
+            <div class="panel-title"><div><small>LEITURA ATUAL</small><h3>Livro do mês</h3></div><span class="pill">Em leitura</span></div>
+            <div class="book-card">
+              <div class="cover"><span>RE7</span><strong>Nossa<br>primeira<br>leitura</strong></div>
+              <div>
+                <h4>Escolha coletiva</h4>
+                <p>O primeiro livro será definido pelo grupo.</p>
+                <label>Progresso coletivo <strong id="progressText">0%</strong></label>
+                <div class="progress"><i id="progressBar"></i></div>
+                <button class="secondary" id="progressBtn">Registrar +10%</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel" id="calendario">
+            <div class="panel-title"><div><small>AGENDA</small><h3>Calendário</h3></div><span id="monthLabel"></span></div>
+            <div class="calendar-head"><button id="prevMonth">‹</button><b id="calendarTitle"></b><button id="nextMonth">›</button></div>
+            <div class="week"><span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span></div>
+            <div class="days" id="calendarDays"></div>
+          </section>
+        </div>
+
+        <section class="panel" id="biblioteca">
+          <div class="panel-title"><div><small>BIBLIOTECA</small><h3>Próximas leituras</h3></div><button class="text-btn" id="addBook">+ Sugerir livro</button></div>
+          <div class="books" id="books">
+            <article><div class="mini-cover">01</div><b>Primeiro livro</b><small>A escolher</small></article>
+            <article><div class="mini-cover alt">02</div><b>Segunda leitura</b><small>Sugestões abertas</small></article>
+            <article><div class="mini-cover third">03</div><b>Terceira leitura</b><small>Em breve</small></article>
+          </div>
+        </section>
+
+        <div class="grid">
+          <section class="panel" id="encontros">
+            <div class="panel-title"><div><small>COMUNIDADE</small><h3>Próximo encontro</h3></div></div>
+            <div class="empty"><b>☕</b><h4>Vamos marcar nosso primeiro encontro?</h4><p>Definam juntos data, horário e formato: presencial ou on-line.</p><button class="secondary" id="meetingBtn">Criar encontro</button></div>
+          </section>
+          <section class="panel" id="votacao">
+            <div class="panel-title"><div><small>DECISÕES</small><h3>Votação</h3></div></div>
+            <div class="empty"><b>✓</b><h4>Escolha democrática</h4><p>Os livros sugeridos poderão entrar na votação do grupo.</p><button class="secondary" id="voteBtn">Abrir votação</button></div>
+          </section>
+        </div>
+
+        <section class="panel" id="participantes">
+          <div class="panel-title"><div><small>SALA 7</small><h3>Nossa comunidade</h3></div></div>
+          <p class="muted">Na próxima etapa, cada participante terá login, perfil, progresso de leitura e diário privado.</p>
+        </section>
+      </main>
+      <footer>RE7NASCER · Livros • Fé • Amizade · <span id="year"></span></footer>
+    </div>
+  </div>
+
+  <nav class="bottom-nav" aria-label="Navegação móvel">
+    <a href="#inicio">⌂<small>Início</small></a><a href="#biblioteca">▤<small>Livros</small></a>
+    <a href="#calendario">▦<small>Agenda</small></a><a href="#participantes">♙<small>Perfil</small></a>
+  </nav>
+  <div class="overlay" id="overlay"></div>
+  <dialog id="dialog"><form method="dialog"><button class="close">×</button><h3 id="dialogTitle">RE7NASCER</h3><p id="dialogText"></p><button class="primary">Entendi</button></form></dialog>
+  <script src="js/app.js"></script>
+</body>
+</html>
