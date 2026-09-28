@@ -72,3 +72,12 @@ document.querySelector("#pageBookSearch")?.addEventListener("input",renderPageLi
 document.querySelectorAll("[data-page-filter]").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll("[data-page-filter]").forEach(x=>x.classList.remove("active"));btn.classList.add("active");pageFilter=btn.dataset.pageFilter;renderPageLibrary()}));
 document.querySelector("#pageAddBook")?.addEventListener("click",()=>info("Sugerir um livro","Na próxima etapa, este botão receberá título, autor e o motivo da sugestão para encaminhar o livro à votação."));
 if(location.hash==="#biblioteca")showView("biblioteca");
+
+/* Corrige navegação entre a Biblioteca e as seções do Dashboard */
+document.querySelectorAll('[data-view-link="dashboard"]').forEach(a=>a.addEventListener("click",e=>{
+  e.preventDefault();
+  const target=a.getAttribute("href");
+  showView("dashboard");
+  history.replaceState(null,"",target);
+  requestAnimationFrame(()=>document.querySelector(target)?.scrollIntoView({behavior:"smooth",block:"start"}));
+}));
