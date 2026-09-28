@@ -34,7 +34,7 @@
         <button class="menu" id="menuBtn" aria-label="Abrir menu">☰</button>
         <div>
           <small>RE7NASCER</small>
-          <h1>Bom dia, leitor 👋</h1>
+          <h1>Bem-vindo ao clube 👋</h1>
         </div>
         <button class="avatar" aria-label="Perfil">R7</button>
       </header>
@@ -51,23 +51,21 @@
         </section>
 
         <section class="stats" aria-label="Resumo">
-          <article><b>01</b><span>Leitura atual</span></article>
-          <article><b>07</b><span>Participantes</span></article>
+          <article><b>—</b><span>Leitura atual</span></article>
+          <article><b>—</b><span>Participantes</span></article>
           <article><b>00</b><span>Livros concluídos</span></article>
           <article><b>—</b><span>Próximo encontro</span></article>
         </section>
 
         <div class="grid">
           <section class="panel reading" id="leitura">
-            <div class="panel-title"><div><small>LEITURA ATUAL</small><h3>Livro do mês</h3></div><span class="pill">Em leitura</span></div>
+            <div class="panel-title"><div><small>PRIMEIRA ETAPA</small><h3>Escolha da primeira leitura</h3></div><span class="pill">Em votação</span></div>
             <div class="book-card">
               <div class="cover"><span>RE7</span><strong>Nossa<br>primeira<br>leitura</strong></div>
               <div>
-                <h4>Escolha coletiva</h4>
-                <p>O primeiro livro será definido pelo grupo.</p>
-                <label>Progresso coletivo <strong id="progressText">0%</strong></label>
-                <div class="progress"><i id="progressBar"></i></div>
-                <button class="secondary" id="progressBtn">Registrar +10%</button>
+                <h4>Ainda não começamos a leitura</h4>
+                <p>O primeiro passo é escolher juntos o livro ou texto bíblico.</p>
+                <a class="secondary" href="#votacoes" data-view-link="votacoes">Participar da votação</a>
               </div>
             </div>
           </section>
@@ -105,14 +103,11 @@
           </section>
           <section class="panel" id="votacao">
             <div class="panel-title"><div><small>DECISÕES</small><h3>Votação</h3></div></div>
-            <div class="empty"><b>✓</b><h4>Escolha democrática</h4><p>Os livros sugeridos poderão entrar na votação do grupo.</p><button class="secondary" id="voteBtn">Abrir votação</button></div>
+            <div class="empty"><b>✓</b><h4>Primeira votação aberta</h4><p>Escolha qual será a primeira leitura do RE7NASCER.</p><a class="secondary" href="#votacoes" data-view-link="votacoes">Votar agora</a></div>
           </section>
         </div>
 
-        <section class="panel" id="participantes">
-          <div class="panel-title"><div><small>SALA 7</small><h3>Nossa comunidade</h3></div></div>
-          <p class="muted">Na próxima etapa, cada participante terá login, perfil, progresso de leitura e diário privado.</p>
-        </section>
+        <section class="panel" id="participantes"><div class="panel-title"><div><small>COMUNIDADE</small><h3>Quer caminhar conosco?</h3></div></div><p class="muted">Pessoas da Sala 7, de outros grupos ou que chegaram por indicação podem manifestar interesse em participar.</p><a class="secondary" href="#participar" data-view-link="participar">Quero participar</a></section>
       </div>
         <section id="libraryView" class="page-view" hidden>
           <div class="page-heading"><div><small>BIBLIOTECA RE7NASCER</small><h2>Biblioteca</h2><p>Descubra as leituras do clube, acompanhe escolhas e encontre seu próximo livro.</p></div><button class="primary" id="pageAddBook">+ Sugerir livro</button></div>
@@ -170,7 +165,7 @@
 
   <nav class="bottom-nav" aria-label="Navegação móvel">
     <a href="#inicio" data-view-link="dashboard">⌂<small>Início</small></a><a href="#biblioteca" data-view-link="biblioteca">▤<small>Livros</small></a>
-    <a href="#calendario" data-view-link="dashboard">▦<small>Agenda</small></a><a href="#participar" data-view-link="participar">♙<small>Participar</small></a>
+    <a href="#calendario" data-view-link="calendario">▦<small>Agenda</small></a><a href="#participar" data-view-link="participar">♙<small>Participar</small></a>
   </nav>
   <div class="overlay" id="overlay"></div>
   <dialog id="dialog"><form method="dialog"><button class="close">×</button><h3 id="dialogTitle">RE7NASCER</h3><p id="dialogText"></p><button class="primary">Entendi</button></form></dialog>
