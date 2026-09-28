@@ -18,7 +18,7 @@
       <nav aria-label="Menu principal">
         <p>PRINCIPAL</p>
         <a class="active" href="#inicio">⌂ <span>Dashboard</span></a>
-        <a href="#biblioteca">▤ <span>Biblioteca</span></a>
+        <a href="#biblioteca" data-view-link="biblioteca">▤ <span>Biblioteca</span></a>
         <a href="#calendario">▦ <span>Calendário</span></a>
         <a href="#leitura">◷ <span>Minha leitura</span></a>
         <p>COMUNIDADE</p>
@@ -39,13 +39,13 @@
         <button class="avatar" aria-label="Perfil">R7</button>
       </header>
 
-      <main id="inicio">
+      <main id="inicio"><div id="dashboardView">
         <section class="hero">
           <div>
             <span class="eyebrow">CLUBE DE LEITURA · SALA 7</span>
             <h2>Uma nova história<br>começa aqui.</h2>
             <p>Um espaço para ler, partilhar, cultivar a fé e manter nossa amizade viva.</p>
-            <a class="primary" href="#biblioteca">Explorar biblioteca</a>
+            <a class="primary" href="#biblioteca" data-view-link="biblioteca">Explorar biblioteca</a>
           </div>
           <div class="hero-mark">7</div>
         </section>
@@ -113,13 +113,22 @@
           <div class="panel-title"><div><small>SALA 7</small><h3>Nossa comunidade</h3></div></div>
           <p class="muted">Na próxima etapa, cada participante terá login, perfil, progresso de leitura e diário privado.</p>
         </section>
+      </div>
+        <section id="libraryView" class="page-view" hidden>
+          <div class="page-heading"><div><small>BIBLIOTECA RE7NASCER</small><h2>Biblioteca</h2><p>Descubra as leituras do clube, acompanhe escolhas e encontre seu próximo livro.</p></div><button class="primary" id="pageAddBook">+ Sugerir livro</button></div>
+          <div class="panel library-page-panel">
+            <div class="library-tools"><label class="search-box">⌕ <input id="pageBookSearch" type="search" placeholder="Buscar por título ou autor..." aria-label="Buscar livros"></label><div class="filters page-filters"><button class="filter active" data-page-filter="todos">Todos</button><button class="filter" data-page-filter="lendo">Lendo</button><button class="filter" data-page-filter="proximo">Próximos</button><button class="filter" data-page-filter="concluido">Concluídos</button></div></div>
+            <div class="library-grid library-grid-page" id="pageLibraryGrid"></div><p class="library-empty" id="pageLibraryEmpty" hidden>Nenhum livro encontrado.</p>
+          </div>
+          <button class="back-dashboard" id="backDashboard">← Voltar ao Dashboard</button>
+        </section>
       </main>
       <footer>RE7NASCER · Livros • Fé • Amizade · <span id="year"></span></footer>
     </div>
   </div>
 
   <nav class="bottom-nav" aria-label="Navegação móvel">
-    <a href="#inicio">⌂<small>Início</small></a><a href="#biblioteca">▤<small>Livros</small></a>
+    <a href="#inicio">⌂<small>Início</small></a><a href="#biblioteca" data-view-link="biblioteca">▤<small>Livros</small></a>
     <a href="#calendario">▦<small>Agenda</small></a><a href="#participantes">♙<small>Perfil</small></a>
   </nav>
   <div class="overlay" id="overlay"></div>
