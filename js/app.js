@@ -62,8 +62,8 @@ function renderPageLibrary(){
   document.querySelectorAll(".page-detail").forEach(btn=>btn.onclick=()=>showBook(Number(btn.dataset.book)));
 }
 function showView(view){
-  const dashboard=document.querySelector("#dashboardView"),library=document.querySelector("#libraryView"),calendar=document.querySelector("#calendarView"),reading=document.querySelector("#readingView"),voting=document.querySelector("#votingView"),meetings=document.querySelector("#meetingsView");
-  dashboard.hidden=view!=="dashboard"; library.hidden=view!=="biblioteca"; if(calendar)calendar.hidden=view!=="calendario"; if(reading)reading.hidden=view!=="leitura"; if(voting)voting.hidden=view!=="votacoes"; if(meetings)meetings.hidden=view!=="encontros";
+  const dashboard=document.querySelector("#dashboardView"),library=document.querySelector("#libraryView"),calendar=document.querySelector("#calendarView"),reading=document.querySelector("#readingView"),voting=document.querySelector("#votingView"),meetings=document.querySelector("#meetingsView"),participate=document.querySelector("#participateView");
+  dashboard.hidden=view!=="dashboard"; library.hidden=view!=="biblioteca"; if(calendar)calendar.hidden=view!=="calendario"; if(reading)reading.hidden=view!=="leitura"; if(voting)voting.hidden=view!=="votacoes"; if(meetings)meetings.hidden=view!=="encontros"; if(participate)participate.hidden=view!=="participar";
   if(view==="biblioteca")renderPageLibrary();
   if(view==="calendario")renderPageCalendar();
   if(view==="leitura")renderPersonalReading();
@@ -137,8 +137,8 @@ if(location.hash==="#minha-leitura")showView("leitura");
 /* Página própria — Votações */
 document.querySelectorAll('[data-view-link="votacoes"]').forEach(a=>a.addEventListener("click",e=>{e.preventDefault();showView("votacoes");history.replaceState(null,"","#votacoes")}));
 document.querySelector("#votingBackDashboard")?.addEventListener("click",()=>{showView("dashboard");history.replaceState(null,"","#inicio")});
-document.querySelector("#voteForm")?.addEventListener("submit",e=>{e.preventDefault();const selected=new FormData(e.currentTarget).get("bookVote"),feedback=document.querySelector("#voteFeedback");if(!selected){feedback.textContent="Escolha uma opção antes de registrar.";return}localStorage.setItem("re7-demo-vote",selected);feedback.textContent=`Voto de demonstração registrado: ${selected} ✓`;});
-const savedVote=localStorage.getItem("re7-demo-vote");if(savedVote){const input=document.querySelector(`input[name="bookVote"][value="${savedVote}"]`);if(input)input.checked=true;}
+document.querySelectorAll('[data-view-link="votacoes"]').forEach(a=>a.addEventListener("click",e=>{e.preventDefault();showView("votacoes");history.replaceState(null,"","#votacoes")}));
+document.querySelector("#votingBackDashboard")?.addEventListener("click",()=>{showView("dashboard");history.replaceState(null,"","#inicio")});
 if(location.hash==="#votacoes")showView("votacoes");
 
 
@@ -189,3 +189,29 @@ if(location.hash==="#votacoes")showView("votacoes");
 document.querySelectorAll('[data-view-link="encontros"]').forEach(a=>a.addEventListener("click",e=>{e.preventDefault();showView("encontros");history.replaceState(null,"","#encontros")}));
 document.querySelector("#meetingsBackDashboard")?.addEventListener("click",()=>{showView("dashboard");history.replaceState(null,"","#inicio")});
 if(location.hash==="#encontros")showView("encontros");
+
+/* Firebase compartilhado — votos e inscrições */
+const re7FirebaseConfig={apiKey:"AIzaSyAZjk_gY-uC0nJvilClYIWHKkAleNSSAAc",authDomain:"re7nascer.firebaseapp.com",projectId:"re7nascer",storageBucket:"re7nascer.firebasestorage.app",messagingSenderId:"224691445083",appId:"1:224691445083:web:8a3dd40472062325648e7e"};
+async function re7Firestore(){
+ const {initializeApp,getApps}=await import("https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js");
+ const fs=await import("https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js");
+ const app=getApps().length?getApps()[0]:initializeApp(re7FirebaseConfig);
+ return {db:fs.getFirestore(app),fs};
+}
+document.querySelector("#voteForm")?.addEventListener("submit",async e=>{
+ e.preventDefault();const feedback=document.querySelector("#voteFeedback"),form=e.currentTarget,selected=new FormData(form).get("bookVote"),name=document.querySelector("#voterName")?.value.trim();
+ if(!selected||!name){feedback.textContent="Escolha uma leitura e informe seu nome.";return}
+ feedback.textContent="Registrando seu voto...";
+ try{const {db,fs}=await re7Firestore();await fs.addDoc(fs.collection(db,"votos"),{votacao:"primeira-leitura",opcao:selected,nome:name,criadoEm:fs.serverTimestamp()});feedback.textContent="Voto registrado. Obrigado por participar! ✓";form.reset();}
+ catch(err){console.error(err);feedback.textContent="A votação ainda precisa ser liberada nas regras do Firebase. Seus dados não foram enviados."}
+});
+document.querySelectorAll('[data-view-link="participar"]').forEach(a=>a.addEventListener("click",e=>{e.preventDefault();showView("participar");history.replaceState(null,"","#participar")}));
+document.querySelector("#participateBackDashboard")?.addEventListener("click",()=>{showView("dashboard");history.replaceState(null,"","#inicio")});
+if(location.hash==="#participar")showView("participar");
+document.querySelector("#joinForm")?.addEventListener("submit",async e=>{
+ e.preventDefault();const form=e.currentTarget,fd=new FormData(form),feedback=document.querySelector("#joinFeedback");
+ const interesses=fd.getAll("interesse");if(!interesses.length){feedback.textContent="Marque pelo menos uma forma de participação.";return}
+ feedback.textContent="Enviando...";
+ try{const {db,fs}=await re7Firestore();await fs.addDoc(fs.collection(db,"inscricoes"),{nome:fd.get("nome").trim(),cidade:fd.get("cidade").trim(),grupo:fd.get("grupo").trim(),whatsapp:fd.get("whatsapp").trim(),email:fd.get("email").trim(),origem:fd.get("origem"),interesses,mensagem:fd.get("mensagem").trim(),status:"pendente",criadoEm:fs.serverTimestamp()});feedback.textContent="Recebemos seu interesse. Obrigado! ✓";form.reset();}
+ catch(err){console.error(err);feedback.textContent="A inscrição ainda precisa ser liberada nas regras do Firebase. Seus dados não foram enviados."}
+});
