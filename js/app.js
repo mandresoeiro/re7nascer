@@ -10,7 +10,31 @@ $("#progressBtn").onclick=()=>{progress=(progress+10)%110;$("#progressText").tex
 
 const dialog=$("#dialog");
 function info(title,text){$("#dialogTitle").textContent=title;$("#dialogText").textContent=text;dialog.showModal()}
-$("#addBook").onclick=()=>info("Sugestão de livro","Na versão com Firebase, cada participante poderá sugerir livros e o grupo poderá votar.");
+const libraryBooks=[
+  {id:1,title:"Primeira leitura",author:"Escolha coletiva",status:"lendo",label:"Lendo agora",number:"01",description:"O primeiro livro do RE7NASCER será escolhido pelo grupo."},
+  {id:2,title:"Segunda leitura",author:"Sugestões da Sala 7",status:"proximo",label:"Próximo",number:"02",description:"Espaço reservado para a próxima escolha coletiva."},
+  {id:3,title:"Terceira leitura",author:"Em construção",status:"proximo",label:"Próximo",number:"03",description:"Mais uma leitura para construirmos juntos."}
+];
+let currentFilter="todos";
+function renderLibrary(){
+  const q=($("#bookSearch")?.value||"").trim().toLowerCase();
+  const items=libraryBooks.filter(b=>(currentFilter==="todos"||b.status===currentFilter)&&(`${b.title} ${b.author}`.toLowerCase().includes(q)));
+  $("#libraryGrid").innerHTML=items.map(b=>`
+    <article class="library-book" tabindex="0" data-book="${b.id}">
+      <div class="library-cover status-${b.status}"><span>RE7</span><strong>${b.number}</strong><small>Clube de Leitura</small></div>
+      <div class="library-info"><span class="status-tag ${b.status}">${b.label}</span><h4>${b.title}</h4><p>${b.author}</p><button class="book-details" data-book="${b.id}">Ver detalhes →</button></div>
+    </article>`).join("");
+  $("#libraryEmpty").hidden=items.length!==0;
+  document.querySelectorAll(".book-details").forEach(btn=>btn.onclick=()=>showBook(Number(btn.dataset.book)));
+}
+function showBook(id){
+  const b=libraryBooks.find(x=>x.id===id);
+  info(b.title,`${b.author}. ${b.description} A ficha completa terá sinopse, período de leitura, progresso e discussões do grupo.`);
+}
+$("#bookSearch")?.addEventListener("input",renderLibrary);
+document.querySelectorAll(".filter").forEach(btn=>btn.onclick=()=>{document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active"));btn.classList.add("active");currentFilter=btn.dataset.filter;renderLibrary()});
+$("#addBook").onclick=()=>info("Sugerir um livro","Em breve este botão abrirá um formulário com título, autor, motivo da sugestão e opção para enviar o livro à votação do grupo.");
+renderLibrary();
 $("#meetingBtn").onclick=()=>info("Novo encontro","O módulo de encontros permitirá definir data, horário, local e formato presencial ou on-line.");
 $("#voteBtn").onclick=()=>info("Votações","As votações serão ativadas quando conectarmos as contas dos participantes ao Firebase.");
 
