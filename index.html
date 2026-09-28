@@ -24,7 +24,7 @@
         <p>COMUNIDADE</p>
         <a href="#encontros" data-view-link="encontros">♧ <span>Encontros</span></a>
         <a href="#votacoes" data-view-link="votacoes">✓ <span>Votações</span></a>
-        <a href="#participantes" data-view-link="dashboard">♙ <span>Participantes</span></a>
+        <a href="#participar" data-view-link="participar">♙ <span>Quero participar</span></a>
       </nav>
       <div class="sidebar-foot">Sala 7<br><small>Livros • Fé • Amizade</small></div>
     </aside>
@@ -136,13 +136,33 @@
           <button class="back-dashboard" id="readingBackDashboard">← Voltar ao Dashboard</button>
         </section>
         <section id="votingView" class="page-view" hidden>
-          <div class="page-heading"><div><small>DECISÕES DO GRUPO</small><h2>Votações</h2><p>Um espaço simples para a Sala 7 escolher livros, datas e outras decisões do clube.</p></div><span class="reading-badge">Participação do grupo</span></div>
-          <div class="voting-layout"><section class="panel voting-main"><div class="vote-kicker"><span class="live-dot"></span> VOTAÇÃO DE EXEMPLO</div><h3>Qual será nossa próxima leitura?</h3><p class="muted">Escolha uma opção abaixo. Esta votação ainda é uma demonstração local do funcionamento.</p><form id="voteForm" class="vote-options"><label><input type="radio" name="bookVote" value="Filoteia"><span><b>Filoteia</b><small>São Francisco de Sales</small></span></label><label><input type="radio" name="bookVote" value="Imitação de Cristo"><span><b>Imitação de Cristo</b><small>Tomás de Kempis</small></span></label><label><input type="radio" name="bookVote" value="História de uma Alma"><span><b>História de uma Alma</b><small>Santa Teresinha do Menino Jesus</small></span></label><button class="primary vote-submit" type="submit">Registrar meu voto</button></form><p class="vote-feedback" id="voteFeedback"></p></section><aside class="panel voting-info"><small>COMO FUNCIONARÁ</small><h3>Votações rápidas</h3><div class="decision-types"><div><b>📚</b><span><strong>Próximo livro</strong><small>Escolha coletiva da leitura.</small></span></div><div><b>📅</b><span><strong>Data e horário</strong><small>Definir o melhor encontro.</small></span></div><div><b>☕</b><span><strong>Formato</strong><small>Presencial ou on-line.</small></span></div><div><b>💬</b><span><strong>Outras decisões</strong><small>Perguntas criadas pelo organizador.</small></span></div></div><div class="agenda-note"><strong>Próxima etapa</strong><p>Com Firebase, cada votação poderá ter prazo, resultado compartilhado e controle para evitar votos repetidos.</p></div></aside></div><button class="back-dashboard" id="votingBackDashboard">← Voltar ao Dashboard</button>
-        </section>
-        <section id="meetingsView" class="page-view" hidden>
+  <div class="page-heading"><div><small>PRIMEIRA DECISÃO DO GRUPO</small><h2>Escolha nossa primeira leitura</h2><p>Vote em uma das opções. O resultado ajudará a definir por onde o RE7NASCER começa.</p></div><span class="reading-badge">Votação aberta</span></div>
+  <div class="voting-layout"><section class="panel voting-main"><div class="vote-kicker"><span class="live-dot"></span> PRIMEIRA VOTAÇÃO</div><h3>Qual leitura você gostaria de começar?</h3><form id="voteForm" class="vote-options">
+  <label><input type="radio" name="bookVote" value="a-fe-explicada"><span><b>A Fé Explicada</b><small>Leo J. Trese · Livro</small></span></label>
+  <label><input type="radio" name="bookVote" value="banquete-do-cordeiro"><span><b>O Banquete do Cordeiro</b><small>Scott Hahn · Livro</small></span></label>
+  <label><input type="radio" name="bookVote" value="todos-caminhos-roma"><span><b>Todos os Caminhos Levam a Roma</b><small>Scott e Kimberly Hahn · Livro</small></span></label>
+  <label><input type="radio" name="bookVote" value="razoes-para-crer"><span><b>Razões para Crer</b><small>Scott Hahn · Livro</small></span></label>
+  <label><input type="radio" name="bookVote" value="carta-sao-paulo"><span><b>Uma Carta de São Paulo</b><small>Sagrada Escritura · A carta será definida pelo grupo</small></span></label>
+  <label class="vote-name"><span><b>Seu nome</b><small>Usado apenas para identificar seu voto nesta fase.</small><input id="voterName" type="text" maxlength="80" placeholder="Como podemos chamar você?" required></span></label>
+  <button class="primary vote-submit" type="submit">Registrar meu voto</button></form><p class="vote-feedback" id="voteFeedback"></p></section>
+  <aside class="panel voting-info"><small>COMO FUNCIONA</small><h3>Decidimos juntos</h3><div class="decision-types"><div><b>📚</b><span><strong>Leitura</strong><small>O grupo escolhe o primeiro livro ou texto bíblico.</small></span></div><div><b>📅</b><span><strong>Depois</strong><small>Podemos votar data e formato do encontro.</small></span></div><div><b>💭</b><span><strong>Durante a leitura</strong><small>Dúvidas e reflexões ficam organizadas no site.</small></span></div></div><div class="agenda-note"><strong>Privacidade</strong><p>Não publique telefone ou e-mail na votação.</p></div></aside></div><button class="back-dashboard" id="votingBackDashboard">← Voltar ao Dashboard</button>
+</section>
+<section id="meetingsView" class="page-view" hidden>
           <div class="page-heading"><div><small>ENCONTROS · SALA 7</small><h2>Nossos encontros</h2><p>Acompanhe data, horário, local, modalidade e onde o grupo está na caminhada.</p></div><span class="reading-badge">Agenda do grupo</span></div>
           <div class="meetings-layout"><section class="panel meeting-feature"><small>PRÓXIMO ENCONTRO</small><div class="meeting-icon">☕</div><h3 id="meetingPageTitle">Carregando...</h3><div class="meeting-meta" id="meetingPageMeta">Consultando o Firebase.</div><p id="meetingPageNote" class="muted"></p></section><aside class="panel meeting-guide"><small>ACOMPANHAMENTO</small><h3>Antes do encontro</h3><div class="decision-types"><div><b>📖</b><span><strong>Onde paramos</strong><small>Capítulo ou página da leitura atual.</small></span></div><div><b>🗂️</b><span><strong>Folder / material</strong><small>Material preparado para o encontro.</small></span></div><div><b>📍</b><span><strong>Local e horário</strong><small>Informações atualizadas pelo organizador.</small></span></div></div></aside></div><section class="panel meeting-history"><div class="panel-title"><div><small>HISTÓRICO</small><h3>Encontros anteriores</h3></div></div><p class="muted">Quando novos encontros forem cadastrados, poderemos exibir aqui o histórico da Sala 7.</p></section><button class="back-dashboard" id="meetingsBackDashboard">← Voltar ao Dashboard</button>
         </section>
+<section id="participateView" class="page-view" hidden>
+ <div class="page-heading"><div><small>COMUNIDADE ABERTA</small><h2>Quero participar</h2><p>O RE7NASCER nasceu da Sala 7, mas pessoas de outros grupos ou que chegaram por indicação também podem manifestar interesse.</p></div><span class="reading-badge">Inscrição de interesse</span></div>
+ <div class="join-layout"><section class="panel join-main"><h3>Conte um pouco sobre você</h3><p class="muted">Enviar este formulário não torna a pessoa automaticamente membro. O organizador poderá entrar em contato depois.</p><form id="joinForm" class="join-form">
+ <label>Nome completo<input name="nome" required maxlength="100" placeholder="Seu nome"></label>
+ <div class="form-row"><label>Cidade<input name="cidade" maxlength="80" placeholder="Sua cidade"></label><label>Grupo/comunidade<input name="grupo" maxlength="100" placeholder="Ex.: Sala 7, CAJU, outro"></label></div>
+ <div class="form-row"><label>WhatsApp <small>(opcional)</small><input name="whatsapp" maxlength="30" placeholder="(00) 00000-0000"></label><label>E-mail <small>(opcional)</small><input name="email" type="email" maxlength="120" placeholder="voce@exemplo.com"></label></div>
+ <label>Como conheceu o RE7NASCER?<select name="origem"><option>Sala 7 / Renascer</option><option>Comunidade CAJU</option><option>Outro grupo católico</option><option>Amigo ou conhecido</option><option>Internet</option><option>Outro</option></select></label>
+ <fieldset><legend>Como gostaria de participar?</legend><label><input type="checkbox" name="interesse" value="Clube de leitura"> Clube de leitura</label><label><input type="checkbox" name="interesse" value="Encontros presenciais"> Encontros presenciais</label><label><input type="checkbox" name="interesse" value="Encontros on-line"> Encontros on-line</label><label><input type="checkbox" name="interesse" value="Sagrada Escritura"> Estudos da Sagrada Escritura</label><label><input type="checkbox" name="interesse" value="Acompanhar"> Apenas acompanhar por enquanto</label></fieldset>
+ <label>Mensagem <small>(opcional)</small><textarea name="mensagem" maxlength="600" placeholder="Se quiser, deixe uma mensagem para o grupo."></textarea></label>
+ <button class="primary" type="submit">Enviar interesse</button><p id="joinFeedback" class="vote-feedback"></p></form></section>
+ <aside class="panel join-info"><small>COMO FUNCIONA</small><h3>Um clube simples e acolhedor</h3><div class="decision-types"><div><b>🗳️</b><span><strong>Escolhemos</strong><small>As leituras são decididas pelo grupo.</small></span></div><div><b>📖</b><span><strong>Lemos</strong><small>Cada pessoa lê no próprio ritmo, dentro da meta combinada.</small></span></div><div><b>💭</b><span><strong>Registramos</strong><small>Dúvidas e reflexões ficam guardadas para o debate.</small></span></div><div><b>🤝</b><span><strong>Conversamos</strong><small>Encontros podem ser presenciais, on-line ou híbridos.</small></span></div></div><div class="privacy-box"><strong>🔒 Seus dados</strong><p>Telefone e e-mail não serão exibidos publicamente no site.</p></div></aside></div><button class="back-dashboard" id="participateBackDashboard">← Voltar ao Dashboard</button>
+</section>
       </main>
       <footer>RE7NASCER · Livros • Fé • Amizade · <span id="year"></span></footer>
     </div>
@@ -150,7 +170,7 @@
 
   <nav class="bottom-nav" aria-label="Navegação móvel">
     <a href="#inicio" data-view-link="dashboard">⌂<small>Início</small></a><a href="#biblioteca" data-view-link="biblioteca">▤<small>Livros</small></a>
-    <a href="#calendario" data-view-link="dashboard">▦<small>Agenda</small></a><a href="#participantes" data-view-link="dashboard">♙<small>Perfil</small></a>
+    <a href="#calendario" data-view-link="dashboard">▦<small>Agenda</small></a><a href="#participar" data-view-link="participar">♙<small>Participar</small></a>
   </nav>
   <div class="overlay" id="overlay"></div>
   <dialog id="dialog"><form method="dialog"><button class="close">×</button><h3 id="dialogTitle">RE7NASCER</h3><p id="dialogText"></p><button class="primary">Entendi</button></form></dialog>
