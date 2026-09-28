@@ -50,3 +50,25 @@ function renderCalendar(){
 $("#prevMonth").onclick=()=>{view.setMonth(view.getMonth()-1);renderCalendar()};
 $("#nextMonth").onclick=()=>{view.setMonth(view.getMonth()+1);renderCalendar()};
 renderCalendar();
+/* Biblioteca como página própria */
+let pageFilter="todos";
+function renderPageLibrary(){
+  const input=document.querySelector("#pageBookSearch");
+  const q=(input?.value||"").trim().toLowerCase();
+  const items=libraryBooks.filter(b=>(pageFilter==="todos"||b.status===pageFilter)&&(`${b.title} ${b.author}`.toLowerCase().includes(q)));
+  const grid=document.querySelector("#pageLibraryGrid"); if(!grid)return;
+  grid.innerHTML=items.map(b=>`<article class="library-book page-book"><div class="library-cover status-${b.status}"><span>RE7</span><strong>${b.number}</strong><small>Clube de Leitura</small></div><div class="library-info"><span class="status-tag ${b.status}">${b.label}</span><h4>${b.title}</h4><p>${b.author}</p><p class="book-description">${b.description}</p><button class="book-details page-detail" data-book="${b.id}">Abrir ficha →</button></div></article>`).join("");
+  document.querySelector("#pageLibraryEmpty").hidden=items.length!==0;
+  document.querySelectorAll(".page-detail").forEach(btn=>btn.onclick=()=>showBook(Number(btn.dataset.book)));
+}
+function showView(view){
+  const dashboard=document.querySelector("#dashboardView"),library=document.querySelector("#libraryView");
+  if(view==="biblioteca"){dashboard.hidden=true;library.hidden=false;renderPageLibrary();window.scrollTo({top:0,behavior:"smooth"});}
+  else{dashboard.hidden=false;library.hidden=true;window.scrollTo({top:0,behavior:"smooth"});}
+}
+document.querySelectorAll('[data-view-link="biblioteca"]').forEach(a=>a.addEventListener("click",e=>{e.preventDefault();showView("biblioteca");history.replaceState(null,"","#biblioteca")}));
+document.querySelector("#backDashboard")?.addEventListener("click",()=>{showView("dashboard");history.replaceState(null,"","#inicio")});
+document.querySelector("#pageBookSearch")?.addEventListener("input",renderPageLibrary);
+document.querySelectorAll("[data-page-filter]").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll("[data-page-filter]").forEach(x=>x.classList.remove("active"));btn.classList.add("active");pageFilter=btn.dataset.pageFilter;renderPageLibrary()}));
+document.querySelector("#pageAddBook")?.addEventListener("click",()=>info("Sugerir um livro","Na próxima etapa, este botão receberá título, autor e o motivo da sugestão para encaminhar o livro à votação."));
+if(location.hash==="#biblioteca")showView("biblioteca");
