@@ -35,7 +35,7 @@ $("#bookSearch")?.addEventListener("input",renderLibrary);
 document.querySelectorAll(".filter").forEach(btn=>btn.onclick=()=>{document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active"));btn.classList.add("active");currentFilter=btn.dataset.filter;renderLibrary()});
 $("#addBook").onclick=()=>info("Sugerir um livro","Em breve este botão abrirá um formulário com título, autor, motivo da sugestão e opção para enviar o livro à votação do grupo.");
 renderLibrary();
-$("#meetingBtn").onclick=()=>info("Novo encontro","O módulo de encontros permitirá definir data, horário, local e formato presencial ou on-line.");
+
 $("#voteBtn").onclick=()=>info("Votações","As votações serão ativadas quando conectarmos as contas dos participantes ao Firebase.");
 
 let view=new Date(); view.setDate(1);
@@ -140,3 +140,46 @@ document.querySelector("#votingBackDashboard")?.addEventListener("click",()=>{sh
 document.querySelector("#voteForm")?.addEventListener("submit",e=>{e.preventDefault();const selected=new FormData(e.currentTarget).get("bookVote"),feedback=document.querySelector("#voteFeedback");if(!selected){feedback.textContent="Escolha uma opção antes de registrar.";return}localStorage.setItem("re7-demo-vote",selected);feedback.textContent=`Voto de demonstração registrado: ${selected} ✓`;});
 const savedVote=localStorage.getItem("re7-demo-vote");if(savedVote){const input=document.querySelector(`input[name="bookVote"][value="${savedVote}"]`);if(input)input.checked=true;}
 if(location.hash==="#votacoes")showView("votacoes");
+
+
+/* Firebase — Próximo encontro (somente leitura) */
+(async function loadFirebaseMeeting(){
+  const title=document.querySelector("#meetingTitle");
+  const details=document.querySelector("#meetingDetails");
+  const note=document.querySelector("#meetingNote");
+  if(!title||!details)return;
+  try{
+    const {initializeApp}=await import("https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js");
+    const {getFirestore,collection,query,where,getDocs,limit}=await import("https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js");
+    const firebaseConfig={
+      apiKey:"AIzaSyAZjk_gY-uC0nJvilClYIWHKkAleNSSAAc",
+      authDomain:"re7nascer.firebaseapp.com",
+      projectId:"re7nascer",
+      storageBucket:"re7nascer.firebasestorage.app",
+      messagingSenderId:"224691445083",
+      appId:"1:224691445083:web:8a3dd40472062325648e7e"
+    };
+    const db=getFirestore(initializeApp(firebaseConfig));
+    const snap=await getDocs(query(collection(db,"encontros"),where("ativo","==",true),limit(1)));
+    if(snap.empty){
+      title.textContent="Nenhum encontro ativo";
+      details.textContent="A próxima data ainda será definida.";
+      if(note)note.textContent="";
+      return;
+    }
+    const d=snap.docs[0].data();
+    title.textContent=d.titulo||"Próximo encontro";
+    const parts=[];
+    if(d.data)parts.push("📅 "+d.data);
+    if(d.horario)parts.push("🕒 "+d.horario);
+    if(d.local)parts.push("📍 "+d.local);
+    if(d.modalidade)parts.push("☕ "+d.modalidade);
+    details.textContent=parts.join("  •  ")||"Informações a confirmar.";
+    if(note)note.textContent=d.observacao||"";
+  }catch(err){
+    console.error("RE7NASCER Firestore:",err);
+    title.textContent="Próximo encontro";
+    details.textContent="Não foi possível carregar a agenda agora.";
+    if(note)note.textContent="Tente atualizar a página em alguns instantes.";
+  }
+})();
