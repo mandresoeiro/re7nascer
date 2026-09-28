@@ -62,8 +62,8 @@ function renderPageLibrary(){
   document.querySelectorAll(".page-detail").forEach(btn=>btn.onclick=()=>showBook(Number(btn.dataset.book)));
 }
 function showView(view){
-  const dashboard=document.querySelector("#dashboardView"),library=document.querySelector("#libraryView"),calendar=document.querySelector("#calendarView"),reading=document.querySelector("#readingView");
-  dashboard.hidden=view!=="dashboard"; library.hidden=view!=="biblioteca"; if(calendar)calendar.hidden=view!=="calendario"; if(reading)reading.hidden=view!=="leitura";
+  const dashboard=document.querySelector("#dashboardView"),library=document.querySelector("#libraryView"),calendar=document.querySelector("#calendarView"),reading=document.querySelector("#readingView"),voting=document.querySelector("#votingView");
+  dashboard.hidden=view!=="dashboard"; library.hidden=view!=="biblioteca"; if(calendar)calendar.hidden=view!=="calendario"; if(reading)reading.hidden=view!=="leitura"; if(voting)voting.hidden=view!=="votacoes";
   if(view==="biblioteca")renderPageLibrary();
   if(view==="calendario")renderPageCalendar();
   if(view==="leitura")renderPersonalReading();
@@ -133,3 +133,10 @@ document.querySelector("#chapterBtn")?.addEventListener("click",()=>{chapterCoun
 document.querySelector("#saveNoteBtn")?.addEventListener("click",()=>{const n=document.querySelector("#readingNotes"),s=document.querySelector("#noteStatus");localStorage.setItem("re7-notes",n.value);s.textContent="Anotação salva neste navegador ✓";setTimeout(()=>s.textContent="Salvo somente neste navegador",2200)});
 document.querySelector("#readingBackDashboard")?.addEventListener("click",()=>{showView("dashboard");history.replaceState(null,"","#inicio")});
 if(location.hash==="#minha-leitura")showView("leitura");
+
+/* Página própria — Votações */
+document.querySelectorAll('[data-view-link="votacoes"]').forEach(a=>a.addEventListener("click",e=>{e.preventDefault();showView("votacoes");history.replaceState(null,"","#votacoes")}));
+document.querySelector("#votingBackDashboard")?.addEventListener("click",()=>{showView("dashboard");history.replaceState(null,"","#inicio")});
+document.querySelector("#voteForm")?.addEventListener("submit",e=>{e.preventDefault();const selected=new FormData(e.currentTarget).get("bookVote"),feedback=document.querySelector("#voteFeedback");if(!selected){feedback.textContent="Escolha uma opção antes de registrar.";return}localStorage.setItem("re7-demo-vote",selected);feedback.textContent=`Voto de demonstração registrado: ${selected} ✓`;});
+const savedVote=localStorage.getItem("re7-demo-vote");if(savedVote){const input=document.querySelector(`input[name="bookVote"][value="${savedVote}"]`);if(input)input.checked=true;}
+if(location.hash==="#votacoes")showView("votacoes");
