@@ -18,3 +18,14 @@
 .page-view{padding-bottom:20px}.page-view[hidden],#dashboardView[hidden]{display:none!important}.page-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin:8px 0 22px;padding:4px 2px}.page-heading small{color:var(--copper);font-weight:700;letter-spacing:1.5px}.page-heading h2{font:700 42px Georgia,serif;color:var(--ink);margin:5px 0 6px}.page-heading p{color:var(--muted);margin:0;max-width:620px}.library-page-panel{padding:24px}.library-grid-page{grid-template-columns:repeat(2,minmax(0,1fr))}.page-book{grid-template-columns:125px 1fr}.page-book .library-cover{height:178px}.book-description{line-height:1.55!important;margin-bottom:18px!important}.back-dashboard{border:0;background:transparent;color:var(--green);font-weight:700;margin:18px 2px;cursor:pointer}
 @media(max-width:900px){.library-grid-page{grid-template-columns:1fr}.page-heading h2{font-size:34px}}
 @media(max-width:600px){.page-heading{display:block}.page-heading .primary{margin-top:16px}.library-page-panel{padding:15px}.page-book{grid-template-columns:90px 1fr}.page-book .library-cover{height:140px}.page-heading h2{font-size:30px}}
+
+/* Navegação desktop — correção de visibilidade */
+@media(min-width:1001px){
+  .sidebar{display:flex!important;visibility:visible!important;transform:none!important;width:260px!important}
+  .content{margin-left:260px!important}
+  .brand img{width:100%!important;max-width:220px!important;margin:0 auto}
+}
+@media(min-width:701px) and (max-width:1000px){
+  .sidebar{display:flex!important;visibility:visible!important;transform:none!important}
+  .content{margin-left:84px!important}
+}
