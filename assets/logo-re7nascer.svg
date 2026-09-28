@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 180" role="img" aria-labelledby="t d">
+<title id="t">RE7NASCER — Clube de Leitura</title><desc id="d">Livro aberto, coração e cruz em verde e cobre.</desc>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path d="M180 62c28-17 53-17 80 6v50c-27-22-54-23-80-8V62Z" fill="#f7f0e3" stroke="#d5a36f" stroke-width="4"/>
+<path d="M340 62c-28-17-53-17-80 6v50c27-22 54-23 80-8V62Z" fill="#f7f0e3" stroke="#d5a36f" stroke-width="4"/>
+<path d="M260 68v50" stroke="#d5a36f" stroke-width="4"/>
+<path d="M260 60c-13-24-44-21-44 3 0 20 24 33 44 51 20-18 44-31 44-51 0-24-31-27-44-3Z" stroke="#d5a36f" stroke-width="4"/>
+<path d="M260 45v42M246 59h28" stroke="#d5a36f" stroke-width="4"/>
+</g>
+<text x="260" y="150" text-anchor="middle" font-family="Georgia,serif" font-size="42" font-weight="700" fill="#f7f0e3" letter-spacing="1">RE<tspan fill="#d5a36f">7</tspan>NASCER</text>
+<text x="260" y="173" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" fill="#dce5df" letter-spacing="3">CLUBE DE LEITURA</text>
+</svg>
