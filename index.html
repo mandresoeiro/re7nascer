@@ -23,7 +23,7 @@
         <a href="#minha-leitura" data-view-link="leitura">◷ <span>Minha leitura</span></a>
         <p>COMUNIDADE</p>
         <a href="#encontros" data-view-link="dashboard">♧ <span>Encontros</span></a>
-        <a href="#votacao" data-view-link="dashboard">✓ <span>Votações</span></a>
+        <a href="#votacoes" data-view-link="votacoes">✓ <span>Votações</span></a>
         <a href="#participantes" data-view-link="dashboard">♙ <span>Participantes</span></a>
       </nav>
       <div class="sidebar-foot">Sala 7<br><small>Livros • Fé • Amizade</small></div>
@@ -134,6 +134,10 @@
           </div>
           <div class="reading-page-grid second-row"><section class="panel"><div class="panel-title"><div><small>DIÁRIO PRIVADO</small><h3>Minhas anotações</h3></div><span class="private-label">🔒 Só você</span></div><textarea id="readingNotes" class="reading-notes" placeholder="Escreva aqui uma reflexão, uma frase marcante ou algo que queira guardar desta leitura..."></textarea><div class="note-actions"><small id="noteStatus">Salvo somente neste navegador</small><button class="secondary" id="saveNoteBtn">Salvar anotação</button></div></section><section class="panel"><div class="panel-title"><div><small>PRÓXIMO PASSO</small><h3>Meta de leitura</h3></div></div><div class="goal-card"><b>📖</b><div><strong>Leia no seu ritmo</strong><p>Quando o grupo definir o primeiro livro, você poderá acompanhar capítulos e metas por encontro.</p></div></div></section></div>
           <button class="back-dashboard" id="readingBackDashboard">← Voltar ao Dashboard</button>
+        </section>
+        <section id="votingView" class="page-view" hidden>
+          <div class="page-heading"><div><small>DECISÕES DO GRUPO</small><h2>Votações</h2><p>Um espaço simples para a Sala 7 escolher livros, datas e outras decisões do clube.</p></div><span class="reading-badge">Participação do grupo</span></div>
+          <div class="voting-layout"><section class="panel voting-main"><div class="vote-kicker"><span class="live-dot"></span> VOTAÇÃO DE EXEMPLO</div><h3>Qual será nossa próxima leitura?</h3><p class="muted">Escolha uma opção abaixo. Esta votação ainda é uma demonstração local do funcionamento.</p><form id="voteForm" class="vote-options"><label><input type="radio" name="bookVote" value="Filoteia"><span><b>Filoteia</b><small>São Francisco de Sales</small></span></label><label><input type="radio" name="bookVote" value="Imitação de Cristo"><span><b>Imitação de Cristo</b><small>Tomás de Kempis</small></span></label><label><input type="radio" name="bookVote" value="História de uma Alma"><span><b>História de uma Alma</b><small>Santa Teresinha do Menino Jesus</small></span></label><button class="primary vote-submit" type="submit">Registrar meu voto</button></form><p class="vote-feedback" id="voteFeedback"></p></section><aside class="panel voting-info"><small>COMO FUNCIONARÁ</small><h3>Votações rápidas</h3><div class="decision-types"><div><b>📚</b><span><strong>Próximo livro</strong><small>Escolha coletiva da leitura.</small></span></div><div><b>📅</b><span><strong>Data e horário</strong><small>Definir o melhor encontro.</small></span></div><div><b>☕</b><span><strong>Formato</strong><small>Presencial ou on-line.</small></span></div><div><b>💬</b><span><strong>Outras decisões</strong><small>Perguntas criadas pelo organizador.</small></span></div></div><div class="agenda-note"><strong>Próxima etapa</strong><p>Com Firebase, cada votação poderá ter prazo, resultado compartilhado e controle para evitar votos repetidos.</p></div></aside></div><button class="back-dashboard" id="votingBackDashboard">← Voltar ao Dashboard</button>
         </section>
       </main>
       <footer>RE7NASCER · Livros • Fé • Amizade · <span id="year"></span></footer>
