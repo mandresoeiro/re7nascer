@@ -62,8 +62,8 @@ function renderPageLibrary(){
   document.querySelectorAll(".page-detail").forEach(btn=>btn.onclick=()=>showBook(Number(btn.dataset.book)));
 }
 function showView(view){
-  const dashboard=document.querySelector("#dashboardView"),library=document.querySelector("#libraryView"),calendar=document.querySelector("#calendarView"),reading=document.querySelector("#readingView"),voting=document.querySelector("#votingView");
-  dashboard.hidden=view!=="dashboard"; library.hidden=view!=="biblioteca"; if(calendar)calendar.hidden=view!=="calendario"; if(reading)reading.hidden=view!=="leitura"; if(voting)voting.hidden=view!=="votacoes";
+  const dashboard=document.querySelector("#dashboardView"),library=document.querySelector("#libraryView"),calendar=document.querySelector("#calendarView"),reading=document.querySelector("#readingView"),voting=document.querySelector("#votingView"),meetings=document.querySelector("#meetingsView");
+  dashboard.hidden=view!=="dashboard"; library.hidden=view!=="biblioteca"; if(calendar)calendar.hidden=view!=="calendario"; if(reading)reading.hidden=view!=="leitura"; if(voting)voting.hidden=view!=="votacoes"; if(meetings)meetings.hidden=view!=="encontros";
   if(view==="biblioteca")renderPageLibrary();
   if(view==="calendario")renderPageCalendar();
   if(view==="leitura")renderPersonalReading();
@@ -176,6 +176,7 @@ if(location.hash==="#votacoes")showView("votacoes");
     if(d.modalidade)parts.push("☕ "+d.modalidade);
     details.textContent=parts.join("  •  ")||"Informações a confirmar.";
     if(note)note.textContent=d.observacao||"";
+    const pt=document.querySelector("#meetingPageTitle"),pm=document.querySelector("#meetingPageMeta"),pn=document.querySelector("#meetingPageNote");if(pt)pt.textContent=d.titulo||"Próximo encontro";if(pm)pm.textContent=parts.join("  •  ")||"Informações a confirmar.";if(pn)pn.textContent=d.observacao||"";
   }catch(err){
     console.error("RE7NASCER Firestore:",err);
     title.textContent="Próximo encontro";
@@ -183,3 +184,8 @@ if(location.hash==="#votacoes")showView("votacoes");
     if(note)note.textContent="Tente atualizar a página em alguns instantes.";
   }
 })();
+
+/* Página própria — Encontros */
+document.querySelectorAll('[data-view-link="encontros"]').forEach(a=>a.addEventListener("click",e=>{e.preventDefault();showView("encontros");history.replaceState(null,"","#encontros")}));
+document.querySelector("#meetingsBackDashboard")?.addEventListener("click",()=>{showView("dashboard");history.replaceState(null,"","#inicio")});
+if(location.hash==="#encontros")showView("encontros");
