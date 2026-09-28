@@ -20,7 +20,7 @@
         <a class="active" href="#inicio" data-view-link="dashboard">⌂ <span>Dashboard</span></a>
         <a href="#biblioteca" data-view-link="biblioteca">▤ <span>Biblioteca</span></a>
         <a href="#calendario" data-view-link="calendario">▦ <span>Calendário</span></a>
-        <a href="#leitura" data-view-link="dashboard">◷ <span>Minha leitura</span></a>
+        <a href="#minha-leitura" data-view-link="leitura">◷ <span>Minha leitura</span></a>
         <p>COMUNIDADE</p>
         <a href="#encontros" data-view-link="dashboard">♧ <span>Encontros</span></a>
         <a href="#votacao" data-view-link="dashboard">✓ <span>Votações</span></a>
@@ -125,6 +125,15 @@
         <section id="calendarView" class="page-view" hidden>
           <div class="page-heading"><div><small>AGENDA RE7NASCER</small><h2>Calendário</h2><p>Organize leituras, encontros e momentos importantes do clube.</p></div><button class="primary" id="newEventBtn">+ Novo encontro</button></div>
           <div class="calendar-page-grid"><section class="panel calendar-main"><div class="calendar-head calendar-page-head"><button id="pagePrevMonth">‹</button><div><small>MÊS</small><h3 id="pageCalendarTitle"></h3></div><button id="pageNextMonth">›</button></div><div class="week calendar-week"><span>DOM</span><span>SEG</span><span>TER</span><span>QUA</span><span>QUI</span><span>SEX</span><span>SÁB</span></div><div class="days calendar-page-days" id="pageCalendarDays"></div></section><aside class="panel agenda-list"><small>PRÓXIMOS</small><h3>Agenda do clube</h3><div class="agenda-empty"><b>☕</b><p>Nenhum encontro marcado ainda.</p><button class="secondary" id="agendaCreateBtn">Criar primeiro encontro</button></div><div class="agenda-note"><strong>Como vamos usar?</strong><p>Datas de encontros, início e término das leituras e outros momentos da Sala 7 aparecerão aqui.</p></div></aside></div><button class="back-dashboard" id="calendarBackDashboard">← Voltar ao Dashboard</button>
+        </section>
+        <section id="readingView" class="page-view" hidden>
+          <div class="page-heading"><div><small>MINHA LEITURA</small><h2>Meu espaço de leitura</h2><p>Acompanhe seu progresso, registre capítulos e guarde reflexões pessoais.</p></div><span class="reading-badge">Leitura pessoal</span></div>
+          <div class="reading-page-grid">
+            <section class="panel reading-focus"><div class="reading-focus-book"><div class="personal-cover"><span>RE7</span><strong>01</strong><small>Leitura atual</small></div><div><span class="status-tag lendo">Lendo agora</span><h3>Primeira leitura</h3><p class="muted">Escolha coletiva da Sala 7</p><div class="personal-progress-label"><span>Meu progresso</span><strong id="personalProgressText">0%</strong></div><div class="progress personal-progress"><i id="personalProgressBar"></i></div><div class="progress-actions"><button class="secondary" data-progress-add="5">+5%</button><button class="secondary" data-progress-add="10">+10%</button><button class="text-btn" id="resetPersonalProgress">Reiniciar</button></div></div></div></section>
+            <aside class="panel reading-summary"><small>RESUMO</small><h3>Minha jornada</h3><div class="reading-metrics"><div><b id="chaptersRead">0</b><span>Capítulos</span></div><div><b>0</b><span>Concluídos</span></div><div><b>—</b><span>Sequência</span></div></div><button class="secondary full-button" id="chapterBtn">+ Registrar capítulo</button></aside>
+          </div>
+          <div class="reading-page-grid second-row"><section class="panel"><div class="panel-title"><div><small>DIÁRIO PRIVADO</small><h3>Minhas anotações</h3></div><span class="private-label">🔒 Só você</span></div><textarea id="readingNotes" class="reading-notes" placeholder="Escreva aqui uma reflexão, uma frase marcante ou algo que queira guardar desta leitura..."></textarea><div class="note-actions"><small id="noteStatus">Salvo somente neste navegador</small><button class="secondary" id="saveNoteBtn">Salvar anotação</button></div></section><section class="panel"><div class="panel-title"><div><small>PRÓXIMO PASSO</small><h3>Meta de leitura</h3></div></div><div class="goal-card"><b>📖</b><div><strong>Leia no seu ritmo</strong><p>Quando o grupo definir o primeiro livro, você poderá acompanhar capítulos e metas por encontro.</p></div></div></section></div>
+          <button class="back-dashboard" id="readingBackDashboard">← Voltar ao Dashboard</button>
         </section>
       </main>
       <footer>RE7NASCER · Livros • Fé • Amizade · <span id="year"></span></footer>
