@@ -59,8 +59,9 @@ function renderPageLibrary(){
   document.querySelectorAll(".page-detail").forEach(btn=>btn.onclick=()=>showBook(Number(btn.dataset.book)));
 }
 function showView(view){
-  const dashboard=document.querySelector("#dashboardView"),library=document.querySelector("#libraryView"),calendar=document.querySelector("#calendarView"),reading=document.querySelector("#readingView"),voting=document.querySelector("#votingView"),meetings=document.querySelector("#meetingsView"),participate=document.querySelector("#participateView");
+  const dashboard=document.querySelector("#dashboardView"),library=document.querySelector("#libraryView"),calendar=document.querySelector("#calendarView"),reading=document.querySelector("#readingView"),doubts=document.querySelector("#doubtsView"),voting=document.querySelector("#votingView"),meetings=document.querySelector("#meetingsView"),participate=document.querySelector("#participateView");
   dashboard.hidden=view!=="dashboard"; library.hidden=view!=="biblioteca"; if(calendar)calendar.hidden=view!=="calendario"; if(reading)reading.hidden=view!=="leitura"; if(voting)voting.hidden=view!=="votacoes"; if(meetings)meetings.hidden=view!=="encontros"; if(participate)participate.hidden=view!=="participar";
+  if(doubts)doubts.hidden=view!=="duvidas";
   if(view==="biblioteca")renderPageLibrary();
   if(view==="calendario")renderPageCalendar();
   if(view==="leitura")renderPersonalReading();
@@ -126,7 +127,7 @@ function renderPersonalReading(){
 document.querySelectorAll('[data-view-link="leitura"]').forEach(a=>a.addEventListener("click",e=>{e.preventDefault();showView("leitura");history.replaceState(null,"","#minha-leitura")}));
 document.querySelectorAll("[data-progress-add]").forEach(btn=>btn.addEventListener("click",()=>{personalProgress=Math.min(100,personalProgress+Number(btn.dataset.progressAdd));localStorage.setItem("re7-progress",personalProgress);renderPersonalReading()}));
 document.querySelector("#resetPersonalProgress")?.addEventListener("click",()=>{personalProgress=0;localStorage.setItem("re7-progress","0");renderPersonalReading()});
-document.querySelector("#chapterBtn")?.addEventListener("click",()=>{chapterCount++;localStorage.setItem("re7-chapters",chapterCount);renderPersonalReading()});
+document.querySelector("#chapterBtn:not([disabled])")?.addEventListener("click",()=>{chapterCount++;localStorage.setItem("re7-chapters",chapterCount);renderPersonalReading()});
 document.querySelector("#saveNoteBtn")?.addEventListener("click",()=>{const n=document.querySelector("#readingNotes"),s=document.querySelector("#noteStatus");localStorage.setItem("re7-notes",n.value);s.textContent="Anotação salva neste navegador ✓";setTimeout(()=>s.textContent="Salvo somente neste navegador",2200)});
 document.querySelector("#readingBackDashboard")?.addEventListener("click",()=>{showView("dashboard");history.replaceState(null,"","#inicio")});
 if(location.hash==="#minha-leitura")showView("leitura");
@@ -210,3 +211,12 @@ document.querySelector("#joinForm")?.addEventListener("submit",async e=>{
  try{const {db,fs}=await re7Firestore();await fs.addDoc(fs.collection(db,"inscricoes"),{nome:fd.get("nome").trim(),cidade:fd.get("cidade").trim(),grupo:fd.get("grupo").trim(),whatsapp:fd.get("whatsapp").trim(),email:fd.get("email").trim(),origem:fd.get("origem"),interesses,mensagem:fd.get("mensagem").trim(),status:"pendente",criadoEm:fs.serverTimestamp()});feedback.textContent="Recebemos seu interesse. Obrigado! ✓";form.reset();}
  catch(err){console.error(err);feedback.textContent="A inscrição ainda precisa ser liberada nas regras do Firebase. Seus dados não foram enviados."}
 });
+
+/* Página — Dúvidas & reflexões */
+document.querySelectorAll('[data-view-link="duvidas"]').forEach(a=>a.addEventListener("click",e=>{e.preventDefault();showView("duvidas");history.replaceState(null,"","#duvidas")}));
+document.querySelector("#doubtsBackDashboard")?.addEventListener("click",()=>{showView("dashboard");history.replaceState(null,"","#inicio")});
+if(location.hash==="#duvidas")showView("duvidas");
+
+/* Estado inicial por hash */
+const knownHashes={"#inicio":"dashboard","#biblioteca":"biblioteca","#calendario":"calendario","#minha-leitura":"leitura","#duvidas":"duvidas","#votacoes":"votacoes","#encontros":"encontros","#participar":"participar"};
+if(knownHashes[location.hash])showView(knownHashes[location.hash]);
