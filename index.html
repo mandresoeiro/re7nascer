@@ -21,6 +21,7 @@
         <a href="#biblioteca" data-view-link="biblioteca">▤ <span>Biblioteca</span></a>
         <a href="#calendario" data-view-link="calendario">▦ <span>Calendário</span></a>
         <a href="#minha-leitura" data-view-link="leitura">◷ <span>Minha leitura</span></a>
+        <a href="#duvidas" data-view-link="duvidas">💭 <span>Dúvidas & reflexões</span></a>
         <p>COMUNIDADE</p>
         <a href="#encontros" data-view-link="encontros">♧ <span>Encontros</span></a>
         <a href="#votacoes" data-view-link="votacoes">✓ <span>Votações</span></a>
@@ -124,13 +125,22 @@
         <section id="readingView" class="page-view" hidden>
           <div class="page-heading"><div><small>MINHA LEITURA</small><h2>Meu espaço de leitura</h2><p>Acompanhe seu progresso, registre capítulos e guarde reflexões pessoais.</p></div><span class="reading-badge">Leitura pessoal</span></div>
           <div class="reading-page-grid">
-            <section class="panel reading-focus"><div class="reading-focus-book"><div class="personal-cover"><span>RE7</span><strong>01</strong><small>Leitura atual</small></div><div><span class="status-tag lendo">Lendo agora</span><h3>Primeira leitura</h3><p class="muted">Escolha coletiva da Sala 7</p><div class="personal-progress-label"><span>Meu progresso</span><strong id="personalProgressText">0%</strong></div><div class="progress personal-progress"><i id="personalProgressBar"></i></div><div class="progress-actions"><button class="secondary" data-progress-add="5">+5%</button><button class="secondary" data-progress-add="10">+10%</button><button class="text-btn" id="resetPersonalProgress">Reiniciar</button></div></div></div></section>
-            <aside class="panel reading-summary"><small>RESUMO</small><h3>Minha jornada</h3><div class="reading-metrics"><div><b id="chaptersRead">0</b><span>Capítulos</span></div><div><b>0</b><span>Concluídos</span></div><div><b>—</b><span>Sequência</span></div></div><button class="secondary full-button" id="chapterBtn">+ Registrar capítulo</button></aside>
+            <section class="panel reading-focus"><div class="reading-focus-book"><div class="personal-cover"><span>RE7</span><strong>01</strong><small>Leitura atual</small></div><div><span class="status-tag proximo">Aguardando votação</span><h3>Primeira leitura</h3><p class="muted">A leitura será liberada após a escolha do grupo.</p><div class="personal-progress-label"><span>Meu progresso</span><strong id="personalProgressText">0%</strong></div><div class="progress personal-progress"><i id="personalProgressBar"></i></div><div class="progress-actions"><button class="secondary" data-progress-add="5">+5%</button><button class="secondary" data-progress-add="10">+10%</button><button class="text-btn" id="resetPersonalProgress">Reiniciar</button></div></div></div></section>
+            <aside class="panel reading-summary"><small>RESUMO</small><h3>Minha jornada</h3><div class="reading-metrics"><div><b id="chaptersRead">0</b><span>Capítulos</span></div><div><b>0</b><span>Concluídos</span></div><div><b>—</b><span>Sequência</span></div></div><button class="secondary full-button" id="chapterBtn" disabled>Disponível após a escolha</button></aside>
           </div>
           <div class="reading-page-grid second-row"><section class="panel"><div class="panel-title"><div><small>DIÁRIO PRIVADO</small><h3>Minhas anotações</h3></div><span class="private-label">🔒 Só você</span></div><textarea id="readingNotes" class="reading-notes" placeholder="Escreva aqui uma reflexão, uma frase marcante ou algo que queira guardar desta leitura..."></textarea><div class="note-actions"><small id="noteStatus">Salvo somente neste navegador</small><button class="secondary" id="saveNoteBtn">Salvar anotação</button></div></section><section class="panel"><div class="panel-title"><div><small>PRÓXIMO PASSO</small><h3>Meta de leitura</h3></div></div><div class="goal-card"><b>📖</b><div><strong>Leia no seu ritmo</strong><p>Quando o grupo definir o primeiro livro, você poderá acompanhar capítulos e metas por encontro.</p></div></div></section></div>
           <button class="back-dashboard" id="readingBackDashboard">← Voltar ao Dashboard</button>
         </section>
-        <section id="votingView" class="page-view" hidden>
+        <section id="doubtsView" class="page-view" hidden>
+<div class="page-heading"><div><small>LEITURA EM COMUNIDADE</small><h2>Dúvidas & reflexões</h2><p>Durante a leitura, registre perguntas e pensamentos para conversarmos nos encontros presenciais ou on-line.</p></div><span class="reading-badge">Mural do grupo</span></div>
+<div class="join-layout"><section class="panel join-main"><h3>Registrar contribuição</h3><p class="muted">Esta área será usada quando a primeira leitura começar.</p><form id="doubtForm" class="join-form">
+<label>Seu nome<input name="nome" required maxlength="80" placeholder="Seu nome"></label>
+<div class="form-row"><label>Tipo<select name="tipo"><option>Dúvida</option><option>Reflexão</option><option>Passagem marcante</option><option>Comentário</option></select></label><label>Capítulo ou página<input name="referencia" maxlength="80" placeholder="Ex.: capítulo 2, pág. 35"></label></div>
+<label>Mensagem<textarea name="mensagem" required maxlength="1000" placeholder="Escreva sua dúvida ou reflexão..."></textarea></label>
+<button class="primary" type="submit" disabled>Disponível quando a leitura começar</button><p class="vote-feedback">O mural será ativado após a votação da primeira leitura.</p></form></section>
+<aside class="panel join-info"><small>PARA O ENCONTRO</small><h3>Nada se perde</h3><div class="decision-types"><div><b>❓</b><span><strong>Pergunte</strong><small>Registre algo que não ficou claro.</small></span></div><div><b>💭</b><span><strong>Reflita</strong><small>Guarde uma ideia que queira compartilhar.</small></span></div><div><b>🤝</b><span><strong>Debata</strong><small>Retomamos as contribuições no encontro.</small></span></div></div></aside></div>
+<button class="back-dashboard" id="doubtsBackDashboard">← Voltar ao Dashboard</button></section>
+<section id="votingView" class="page-view" hidden>
   <div class="page-heading"><div><small>PRIMEIRA DECISÃO DO GRUPO</small><h2>Escolha nossa primeira leitura</h2><p>Vote em uma das opções. O resultado ajudará a definir por onde o RE7NASCER começa.</p></div><span class="reading-badge">Votação aberta</span></div>
   <div class="voting-layout"><section class="panel voting-main"><div class="vote-kicker"><span class="live-dot"></span> PRIMEIRA VOTAÇÃO</div><h3>Qual leitura você gostaria de começar?</h3><form id="voteForm" class="vote-options">
   <label><input type="radio" name="bookVote" value="a-fe-explicada"><span><b>A Fé Explicada</b><small>Leo J. Trese · Livro</small></span></label>
