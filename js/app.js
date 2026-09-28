@@ -81,3 +81,20 @@ document.querySelectorAll('[data-view-link="dashboard"]').forEach(a=>a.addEventL
   history.replaceState(null,"",target);
   requestAnimationFrame(()=>document.querySelector(target)?.scrollIntoView({behavior:"smooth",block:"start"}));
 }));
+
+/* Navegação robusta para seções internas */
+function openDashboardSection(selector){
+  showView("dashboard");
+  history.replaceState(null,"",selector);
+  setTimeout(()=>{
+    const el=document.querySelector(selector);
+    if(el){
+      const header=document.querySelector("header");
+      const top=el.getBoundingClientRect().top+window.scrollY-(header?.offsetHeight||92)-20;
+      window.scrollTo({top,behavior:"smooth"});
+    }
+  },60);
+}
+document.querySelectorAll('[data-view-link="dashboard"]').forEach(a=>{
+  a.onclick=e=>{e.preventDefault();openDashboardSection(a.getAttribute("href"));};
+});
